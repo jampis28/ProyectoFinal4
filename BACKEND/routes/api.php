@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AuthController;
 use App\Http\Controllers\BitacoraController;
 use App\Http\Controllers\EnlaceController;
 use App\Http\Controllers\PaginaController;
@@ -70,4 +71,12 @@ Route::controller(UsuarioController::class)->group(function () {
     Route::post('/usuarios', 'store');
     Route::put('/usuarios/{id}', 'update');
     Route::delete('/usuarios/{id}', 'destroy');
+});
+
+Route::post('/register', [AuthController::class, 'register']);
+Route::post('/login', [AuthController::class, 'authenticate']);
+
+Route::group(['middleware' => ['jwt.verify']], function() {
+    Route::get('user', [AuthController::class, 'getAuthenticatedUser']);
+    Route::post('/logout', [AuthController::class, 'logout']);
 });
