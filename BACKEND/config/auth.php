@@ -40,6 +40,12 @@ return [
             'driver' => 'session',
             'provider' => 'users',
         ],
+        'api' => [
+            'driver' => 'jwt',
+            'provider' => 'users',
+            'hash' => false,
+            'ttl' => 60, // Tiempo de vida del token en minutos
+        ],
     ],
 
     /*
@@ -62,7 +68,9 @@ return [
     'providers' => [
         'users' => [
             'driver' => 'eloquent',
-            'model' => App\Models\User::class,
+            'model' => App\Models\Usuario::class,
+            'table' => 'usuarios',
+        'identifier' => 'id',
         ],
 
         // 'users' => [
