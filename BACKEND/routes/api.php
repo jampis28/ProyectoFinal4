@@ -65,18 +65,16 @@ Route::controller(RolController::class)->group(function () {
     Route::delete('/roles/{id}', 'destroy');
 });
 
-Route::controller(UsuarioController::class)->group(function () {
-    Route::get('/usuarios', 'index');
-    Route::get('/usuarios/{id}', 'show');
-    Route::post('/usuarios', 'store');
-    Route::put('/usuarios/{id}', 'update');
-    Route::delete('/usuarios/{id}', 'destroy');
-});
-
 Route::post('/register', [AuthController::class, 'register']);
 Route::post('/login', [AuthController::class, 'authenticate']);
-
-Route::group(['middleware' => ['jwt.verify']], function() {
+Route::group(['middleware' => ['jwt.verify']], function () {
     Route::get('user', [AuthController::class, 'getAuthenticatedUser']);
     Route::post('/logout', [AuthController::class, 'logout']);
+    Route::controller(UsuarioController::class)->group(function () {
+        Route::get('/usuarios', 'index');
+        Route::get('/usuarios/{id}', 'show');
+        Route::post('/usuarios', 'store');
+        Route::put('/usuarios/{id}', 'update');
+        Route::delete('/usuarios/{id}', 'destroy');
+    });
 });

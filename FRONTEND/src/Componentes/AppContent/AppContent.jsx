@@ -3,6 +3,7 @@ import Login from "../Login/login.jsx";
 import Dashboard from "../dashboard/Dashboard.jsx";
 import { useUser } from "../Login/UserContext.jsx";
 import Register from "../Register/Register.jsx";
+import Usuario from "../Usuarios/Usuario.jsx";
 const AppContent = () => {
   const { user } = useUser();
   return (
@@ -10,6 +11,7 @@ const AppContent = () => {
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<Login />} />
+          {console.log(user)}
           <Route path="/register" element={<Register />} />
           <Route
             path="/dashboard"
@@ -17,7 +19,7 @@ const AppContent = () => {
           />
           <Route
             path="/usuarios"
-            element={user ? <Dashboard /> : <Navigate to="/" />}
+            element={user ? <Usuario /> : <Navigate to="/" />}
           />
         </Routes>
       </BrowserRouter>
